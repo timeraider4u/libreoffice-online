@@ -1,0 +1,27 @@
+--- Data/ODBC/ODBC.make	2016-08-18 16:51:37.102808472 +0200
++++ Data/ODBC/ODBC.make	2016-08-18 16:54:03.831934120 +0200
+@@ -14,9 +14,9 @@
+ ifeq (0, $(shell test -d /usr/lib/$(OSARCH)-linux-gnu; echo $$?))
+ POCO_ODBC_LIB = /usr/lib/$(OSARCH)-linux-gnu
+ else ifeq (0, $(shell test -d /usr/lib64; echo $$?))
+-POCO_ODBC_LIB = /usr/lib64
++POCO_ODBC_LIB = /usr/${LIBDIR}
+ else 
+-POCO_ODBC_LIB = /usr/lib
++POCO_ODBC_LIB = /usr/${LIBDIR}
+ endif
+ endif
+ 
+@@ -44,9 +44,9 @@
+ ##
+ ## unixODBC
+ ##
+-else ifeq (0, $(shell test -e $(POCO_ODBC_LIB)/libodbc$(LIBLINKEXT); echo $$?))
++else ifeq (unixodbc, $(GENTOO_ODBC))
+ SYSLIBS += -lodbc
+-ifeq (0, $(shell test -e $(POCO_ODBC_LIB)/libodbcinst$(LIBLINKEXT); echo $$?))
++ifeq (0, $(unixodbc, $(GENTOO_ODBC))
+ SYSLIBS += -lodbcinst
+ endif
+ COMMONFLAGS += -DPOCO_UNIXODBC
+ 

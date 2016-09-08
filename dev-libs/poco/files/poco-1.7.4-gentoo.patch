@@ -1,0 +1,35 @@
+--- components	2016-08-18 16:08:06.647262454 +0200
++++ components	2016-08-18 16:08:12.853752994 +0200
+@@ -1,5 +1,3 @@
+-CppUnit
+-CppUnit/WinTestRunner
+ Foundation
+ XML
+ JSO
+--- Makefile	2016-08-18 16:24:03.886426688 +0200
++++ Makefile	2016-08-18 16:24:47.561829845 +0200
+@@ -95,7 +95,7 @@
+ 
+ install: libexecs
+ 	mkdir -p $(INSTALLDIR)/include/Poco
+-	mkdir -p $(INSTALLDIR)/lib
++	mkdir -p $(INSTALLDIR)/${LIBDIR}
+ 	mkdir -p $(INSTALLDIR)/bin
+ 	for comp in $(filter-out $(foreach f,$(OMIT),$f%),$(COMPONENTS)) ; do \
+ 		if [ -d "$(POCO_BASE)/$$comp/include" ] ; then \
+@@ -106,11 +106,11 @@
+ 		fi ; \
+ 	done
+ ifeq ($(OSNAME), CYGWIN)
+-	find $(POCO_BUILD)/lib/$(OSNAME)/$(OSARCH) -name "cygPoco*" -type f -exec cp -f  {} $(INSTALLDIR)/bin \;
+-	find $(POCO_BUILD)/lib/$(OSNAME)/$(OSARCH) -name "cygPoco*" -type l -exec cp -Rf {} $(INSTALLDIR)/bin \;
++	find $(POCO_BUILD)/${LIBDIR}/ -name "cygPoco*" -type f -exec cp -f  {} $(INSTALLDIR)/bin \;
++	find $(POCO_BUILD)/${LIBDIR}/ -name "cygPoco*" -type l -exec cp -Rf {} $(INSTALLDIR)/bin \;
+ endif
+-	find $(POCO_BUILD)/lib/$(OSNAME)/$(OSARCH) -name "libPoco*" -type f -exec cp -f  {} $(INSTALLDIR)/lib \;
+-	find $(POCO_BUILD)/lib/$(OSNAME)/$(OSARCH) -name "libPoco*" -type l -exec cp -Rf {} $(INSTALLDIR)/lib \;
++	find $(POCO_BUILD)/${LIBDIR}/ -name "libPoco*" -type f -exec cp -f  {} $(INSTALLDIR)/${LIBDIR} \;
++	find $(POCO_BUILD)/${LIBDIR}/ -name "libPoco*" -type l -exec cp -Rf {} $(INSTALLDIR)/${LIBDIR} \;
+ 
+ libexecs =  Foundation-libexec XML-libexec JSON-libexec Util-libexec Net-libexec
+ tests    =  Foundation-tests XML-tests JSON-tests Util-tests Net-tests
