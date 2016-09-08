@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -19,7 +19,7 @@ RDEPEND=">=net-libs/nodejs-0.8.10
 	${DEPEND}"
 
 src_unpack() {
-	unpack "${A}"
+	unpack ${A}
 	mv "${WORKDIR}/FileList-v${PV}" "${S}" \
 		|| die "Could not move '${WORKDIR}/FileList-v${PV}' to '${S}'"
 }

@@ -92,7 +92,6 @@ src_install() {
 	cp -R "${S}/${JS}/${JS}-${PV}/dist"/* "${D}/${MYPATH_JS}" || die \
 		"could not copy '${S}/${JS}/${JS}-${PV}/' to '${D}/${MYPATH_JS}'"
 	# prepare other things
-	
 	dodir "/${MYPATH}/cache"
 	fowners "${MYUSER}:${MGROUP}" "/${MYPATH}/cache"
 	dodir "/${MYPATH}/home"

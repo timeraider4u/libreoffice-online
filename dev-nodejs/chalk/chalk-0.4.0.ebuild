@@ -1,12 +1,12 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
 inherit npm
 
-DESCRIPTION="Terminal string styling done right. Created because the `colors` module does some really horrible things."
+DESCRIPTION="Terminal string styling done right. Alternative to 'colors' module."
 
 LICENSE="MIT"
 SLOT="0"

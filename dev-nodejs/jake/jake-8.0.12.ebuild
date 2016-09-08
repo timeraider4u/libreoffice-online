@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -26,7 +26,7 @@ MY_P="usr/${MY_LIBDIR}"
 NPM_EXTRA_FILES="bin"
 
 src_unpack() {
-	unpack "${A}"
+	unpack ${A}
 	mv "${WORKDIR}/${PN}-v${PV}" "${S}" \
 		|| die "Could not move '${WORKDIR}/${PN}-v${PV}' to '${S}'"
 }
