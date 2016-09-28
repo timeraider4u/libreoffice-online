@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit npm
 
-DESCRIPTION="Quick and dirty signatures for Objects."
+DESCRIPTION="A cache object that deletes least-recently-used items."
 
 LICENSE="MIT"
 SLOT="0"

@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit npm
 
-DESCRIPTION="A cache object that deletes the least-recently-used items."
+DESCRIPTION="A classic collection of JavaScript utilities"
 
 LICENSE="MIT"
 SLOT="0"
@@ -15,3 +15,9 @@ IUSE=""
 DEPEND=""
 RDEPEND=">=net-libs/nodejs-0.8.10
 	${DEPEND}"
+
+src_unpack() {
+	unpack ${A}
+	mv "${WORKDIR}/${PN}-v${PV}" "${S}" \
+		|| die "Could not move '${WORKDIR}/${PN}-v${PV}' to '${S}'"
+}

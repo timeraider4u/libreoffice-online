@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit npm
 
-DESCRIPTION="ANSI escape codes for styling strings in the terminal"
+DESCRIPTION="ANSI escape codes for colorizing strings in terminal"
 
 LICENSE="MIT"
 SLOT="0"

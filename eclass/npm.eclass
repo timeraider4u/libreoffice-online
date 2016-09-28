@@ -47,6 +47,7 @@ NPM_FILES="index.js lib package.json ${NPM_MODULE}.js"
 # listed in NPM_FILES, then this is the place to put them in.
 # Can be either files, or directories.
 # Example: NPM_EXTRA_FILES="rigger.js modules"
+NPM_EXTRA_FILES="bin"
 
 HOMEPAGE="https://www.npmjs.org/package/${PN}"
 SRC_URI="http://registry.npmjs.org/${PN}/-/${P}.tgz"
