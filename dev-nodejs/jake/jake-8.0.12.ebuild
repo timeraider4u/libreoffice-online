@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit multilib npm
+inherit npm
 
 DESCRIPTION="JavaScript build tool, similar to Make or Rake"
 
@@ -15,15 +15,11 @@ IUSE=""
 DEPEND=""
 RDEPEND=">=net-libs/nodejs-0.8.10
 	>=dev-nodejs/filelist-0.0.4
-	>=dev-nodejs/minimatch-0.2.5
+	>=dev-nodejs/minimatch-0.2.14
 	>=dev-nodejs/chalk-0.4.0
 	>=dev-nodejs/utilities-1.0.4
 	>=dev-nodejs/async-0.9.2
 	${DEPEND}"
-
-MY_LIBDIR=$(get_libdir)
-MY_P="usr/${MY_LIBDIR}"
-NPM_EXTRA_FILES="bin"
 
 src_unpack() {
 	unpack ${A}
@@ -34,8 +30,8 @@ src_unpack() {
 src_install() {
 	npm_src_install
 	dodir /usr/bin
-	ln -snf "../${MY_LIBDIR}/node_modules/jake/bin/cli.js" "${D}/usr/bin/jake" \
+	ln -snf "../$(get_libdir)/node_modules/jake/bin/cli.js" "${D}/usr/bin/jake" \
 		|| die "Could not create '${D}/usr/bin/jake'"
-	chmod 755 "${D}/${MY_P}/node_modules/jake/bin/cli.js" || die \
-		"Could not change perms for '${D}/${MY_P}/node_modules/jake/bin/cli.js'"
+	chmod 755 "${D}/usr/$(get_libdir)/node_modules/jake/bin/cli.js" || die \
+		"Could not change perms for '${D}/usr/$(get_libdir)/node_modules/jake/bin/cli.js'"
 }
