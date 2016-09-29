@@ -46,7 +46,7 @@ pkg_setup() {
 	enewgroup "${MYGROUP}"
 	enewuser "${MYUSER}" -1 -1 "/${MYPATH}/home" "${MGROUP}"
 	# we need this to prevent issue https://github.com/npm/npm/issues/11486
-	mkdir "/usr/etc" || die "Could not create '/usr/etc'"
+	mkdir -p "/usr/etc" || die "Could not create '/usr/etc'"
 }
 
 src_unpack() {
