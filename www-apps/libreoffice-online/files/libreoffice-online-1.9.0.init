@@ -3,7 +3,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 LOGFILE="/var/log/libreoffice-online/lool.log"
-ERRFILE="/var/log/libreoffice-online/lool-err.log"
+#ERRFILE="/var/log/libreoffice-online/lool-err.log"
 PIDFILE="/var/run/lool.pid"
 
 depend() {
@@ -29,7 +29,7 @@ start() {
 		--make-pidfile \
 		--pidfile "${PIDFILE}" \
 		--stdout "${LOGFILE}" \
-		--stderr "${ERRFILE}" \
+		--stderr "${LOGFILE}" \
 		--exec /usr/bin/loolwsd
 	eend $?
 }

@@ -120,14 +120,18 @@ src_install() {
 	dodir "${LOGDIR}"
 	fowners "${MYUSER}:${MGROUP}" "${LOGDIR}"
 	# install config file(s)
-	dodir "/etc/loolwsd"
+	#dodir "/etc/loolwsd"
+	mv "${D}/etc/loolwsd/loolwsd.xml" "${D}/etc/loolwsd/loolwsd.original" \
+		|| die "Could not rename '${D}/etc/loolwsd/loolwsd.xml'"
 	insinto "/etc/loolwsd"
 	newins "${FILESDIR}/${P}-loolwsd.xml" "loolwsd.xml"
 }
 
 pkg_postinst() {
+	rm -rf "/usr/etc" || die "Could not delete '/usr/etc'"
 	elog "Set required capabilities for '${PROG1}' and '${PROG2}'"
 	fcaps_pkg_postinst
+	# populate systemplate
 	local SYS="/var/lib/libreoffice-online/systemplate"
 	elog "Creating and populating '${SYS}'"
 	rm -Rf "${SYS}" || \
@@ -138,10 +142,14 @@ pkg_postinst() {
 		|| die "Could not execute '${PROG3}"\
 			"${SYS}" \
 			"/usr/lib64/libreoffice/'"
-#	elog "su -l ${MYUSER} -s /bin/bash -c '/usr/bin/loolwsd-systemplate-setup" \
-#		"/${MYPATH}/systemplate" \
-#		"/usr/lib64/libreoffice/'"
-#	su -l "${MYUSER}" -s /bin/bash -c "/usr/bin/loolwsd-systemplate-setup" \
-#		"/${MYPATH}/systemplate" \
-#		"/usr/lib64/libreoffice/"
+	rm -rf "${SYS}/usr/lib64/libreoffice" \
+		|| die "Could not delete directory '${SYS}/usr/lib64/libreoffice'"
+	# print how-to use...
+	elog "Ready for usage!"
+	ewarn "Change login/password for admin console in /etc/loolwsd/loolwsd.xml!"
+	elog "For OpenRC execute: /etc/init.d/libreoffice-online start"
+	elog "For Systemd execute: "
+	elog "Then open https://localhost:9980/loleaflet/loleaflet.html?" \
+		"file_path=file:///home/test.odt&host=wss://localhost:9980"\
+		"in your browser"
 }

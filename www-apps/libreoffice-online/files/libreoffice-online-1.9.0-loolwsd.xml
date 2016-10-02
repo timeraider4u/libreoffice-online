@@ -59,8 +59,8 @@
     </storage>
 
     <admin_console desc="Web admin console settings.">
-        <username desc="The username of the admin console. Must be set.">harry</username>
-        <password desc="The password of the admin console. Must be set.">harry</password>
+        <username desc="The username of the admin console. Must be set.">admin</username>
+        <password desc="The password of the admin console. Must be set.">test</password>
     </admin_console>
 
 </config>
