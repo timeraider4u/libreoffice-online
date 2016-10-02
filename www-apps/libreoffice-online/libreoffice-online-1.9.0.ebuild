@@ -14,7 +14,6 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-MIN="-1"
 SERVER="loolwsd"
 JS="loleaflet"
 MYUSER="lool"
@@ -29,7 +28,7 @@ FILECAPS=(
 	cap_sys_admin=ep "${PROG2}"
 )
 
-SRC_URI="https://github.com/LibreOffice/online/archive/${PV}${MIN}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/LibreOffice/online/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 # libreoffice[odk]???
 RDEPEND=">=app-office/libreoffice-5.2
@@ -57,7 +56,7 @@ src_unpack() {
 
 src_prepare() {
 	epatch "${FILESDIR}/${P}-${SERVER}-Makefile.am.patch"
-	epatch "${FILESDIR}/${P}-${SERVER}-LOOLKit.cpp.patch"
+	#epatch "${FILESDIR}/${P}-${SERVER}-LOOLKit.cpp.patch"
 	epatch "${FILESDIR}/${P}-${JS}-Makefile.patch"
 	eapply_user
 }
@@ -99,8 +98,12 @@ src_install() {
 	dodir "/${MYPATH}/home"
 	fowners "${MYUSER}:${MGROUP}" "/${MYPATH}/home"
 	dodir "/${MYPATH}/jails"
-	fowners "${MYUSER}:${MGROUP}" "/${MYPATH}/jails"
 	fperms 0700 "/${MYPATH}/jails"
+	fowners "${MYUSER}:${MGROUP}" "/${MYPATH}/jails"
+	# and necessary symlinks
+	dosym "../loleaflet" "/${MYPATH}/home/loleaflet"
+	dosym "../loleaflet" "/${MYPATH}/loleaflet/dist"
+	
 	#dodir "/${MYPATH}/systemplate"
 	#fowners "${MYUSER}:${MGROUP}" "/${MYPATH}/systemplate"
 	# move /usr/bin/... /usr/sbin/ ???
@@ -110,11 +113,16 @@ src_install() {
 	# su - ${MYUSER} -c mkdir /home/lool/systemplate
 	# su - ${MYUSER} -c loolwsd-systemplate-setup ./systemplate /usr/lib64/libreoffice/
 	## RC script ##
-	#    newinitd "${FILESDIR}/${PN}.init" "${PN}"
+	newinitd "${FILESDIR}/${P}.init" "${PN}"
 	#    newconfd "${FILESDIR}/${PN}.conf" "${PN}"
+	# create logging directory
 	local LOGDIR="/var/log/libreoffice-online/"
 	dodir "${LOGDIR}"
 	fowners "${MYUSER}:${MGROUP}" "${LOGDIR}"
+	# install config file(s)
+	dodir "/etc/loolwsd"
+	insinto "/etc/loolwsd"
+	newins "${FILESDIR}/${P}-loolwsd.xml" "loolwsd.xml"
 }
 
 pkg_postinst() {
