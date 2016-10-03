@@ -14,3 +14,4 @@
 =dev-nodejs/utilities-1.0.4 ~amd64
 =dev-util/mdds-1.2.2 ~amd64
 =www-apps/libreoffice-online-1.9.0 ~amd64
+=www-apps/loleaflet-1.9.0 ~amd64
