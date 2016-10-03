@@ -97,9 +97,10 @@ pkg_postinst() {
 	# print how-to use...
 	elog "Ready for usage!"
 	ewarn "Change login/password for admin console in /etc/loolwsd/loolwsd.xml!"
-	elog "For OpenRC execute: /etc/init.d/libreoffice-online start"
-	elog "For Systemd execute: systemctl start loolwsd"
-	elog "Then open https://localhost:9980/loleaflet/loleaflet.html?" \
-		"file_path=file:///home/test.odt&host=wss://localhost:9980"\
-		"in your browser"
+	elog "For OpenRC execute: /etc/init.d/${PN} start"
+	elog "For Systemd execute: systemctl start ${PN}"
+	local URL_PART1="https://localhost:9980/loleaflet/loleaflet.html?"
+	local URL_PART2="file_path=file:///home/test.odt&host=wss://localhost:9980"
+	local URL="${URL_PART1}${URL_PART2}"
+	elog "Then open ${URL} in your browser!"
 }
