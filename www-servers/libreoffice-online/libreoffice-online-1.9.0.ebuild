@@ -92,8 +92,8 @@ pkg_postinst() {
 		|| die "Could not execute '${PROG3}"\
 			"${SYS}" \
 			"/usr/lib64/libreoffice/'"
-	#rm -rf "${SYS}/usr/lib64/libreoffice" \
-	#	|| die "Could not delete directory '${SYS}/usr/lib64/libreoffice'"
+	rm -rf "${SYS}/usr/lib64/libreoffice" \
+		|| die "Could not delete directory '${SYS}/usr/lib64/libreoffice'"
 	# print how-to use...
 	elog "Ready for usage!"
 	ewarn "Change login/password for admin console in /etc/loolwsd/loolwsd.xml!"
