@@ -66,13 +66,6 @@ src_compile() {
 src_install() {
 	cd "${S}/${PN}" || die "Could not change dir to '${S}/${PN}'"
 	emake DESTDIR="${D}" install
-	
-	# install config file(s)
-	#dodir "/etc/loolwsd"
-	mv "${D}/etc/loolwsd/loolwsd.xml" "${D}/etc/loolwsd/loolwsd.original" \
-		|| die "Could not rename '${D}/etc/loolwsd/loolwsd.xml'"
-	insinto "/etc/loolwsd"
-	newins "${FILESDIR}/${PV}/loolwsd.xml" "loolwsd.xml"
 }
 
 pkg_postinst() {
