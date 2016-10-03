@@ -36,12 +36,6 @@ FILECAPS=(
 	cap_sys_admin=ep "${PROG2}"
 )
 
-pkg_setup() {
-	local MYPATH="var/lib/libreoffice-online"
-	enewgroup "${MYGROUP}"
-	enewuser "${MYUSER}" -1 -1 "/${MYPATH}/home" "${MGROUP}"
-}
-
 src_prepare() {
 	epatch "${FILESDIR}/${PV}/Makefile.am.patch"
 	epatch "${FILESDIR}/${PV}/LOOLKit.cpp.patch"
