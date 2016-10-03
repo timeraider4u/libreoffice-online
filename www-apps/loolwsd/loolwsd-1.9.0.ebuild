@@ -61,8 +61,8 @@ src_install() {
 	cd "${S}/${PN}" || die "Could not change dir to '${S}/${PN}'"
 	emake DESTDIR="${D}" install
 	local MY_CNF="${D}/etc/loolwsd/loolwsd.xml"
-	cp "${MY_CNF}" "${MY_CNF}.orig" \
-		|| die "Could not copy '${MY_CNF}' to '${MY_CNF}.orig'"
+	mv "${MY_CNF}" "${MY_CNF}.orig" \
+		|| die "Could not move '${MY_CNF}' to '${MY_CNF}.orig'"
 }
 
 pkg_postinst() {
