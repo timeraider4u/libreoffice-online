@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-SRC_URI="https://github.com/LibreOffice/online/archive/${PV}.tar.gz 
+SRC_URI="https://github.com/LibreOffice/online/archive/${PV}.tar.gz
 	-> libreoffice-online-${PV}.tar.gz"
 
 RDEPEND="net-libs/nodejs"
@@ -44,6 +44,7 @@ src_install() {
 	dodir "/${MYPATH_JS}"
 	cp -R "${S}/${PN}/dist"/* "${D}/${MYPATH_JS}" || die \
 		"could not copy '${S}/${PN}/dist/' to '${D}/${MYPATH_JS}'"
+	dosym "../loleaflet" "${MYPATH_JS}/dist"
 }
 
 pkg_postinst() {
