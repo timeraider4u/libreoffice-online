@@ -27,6 +27,14 @@ DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/online-${PV}"
 
+# check if <systemplate> and <lotemplate> are on the same partition
+# as otherwise executing the loolwsd service will lead to problems
+# when trying to create hard-links across different partitions/devices.
+#function checkSamePartition() {
+# stat -c "%d %m" /usr/lib64/libreoffice
+# stat -c "%d %m" /var/lib/libreoffice-online/systemplate/
+#}
+
 pkg_setup() {
 	enewgroup "${MYGROUP}"
 	enewuser "${MYUSER}" -1 -1 "${MYPATH}/home" "${MGROUP}"
@@ -77,7 +85,11 @@ src_install() {
 	fowners "${MYUSER}:${MYGROUP}" "${LOGDIR}"
 	# install config file(s)
 	insinto "/etc/loolwsd"
-	newins "${FILESDIR}/${PV}/loolwsd.xml" "loolwsd.xml"
+	# if systemplate and lotemplate on same partition:
+		newins "${FILESDIR}/${PV}/loolwsd.xml" "loolwsd.xml"
+	# else
+		#newins "${FILESDIR}/${PV}/loolwsd2.xml" "loolwsd.xml"
+	# endif
 }
 
 pkg_postinst() {
@@ -92,8 +104,14 @@ pkg_postinst() {
 		|| die "Could not execute '${PROG3}"\
 			"${SYS}" \
 			"/usr/lib64/libreoffice/'"
-	rm -rf "${SYS}/usr/lib64/libreoffice" \
-		|| die "Could not delete directory '${SYS}/usr/lib64/libreoffice'"
+	# if systemplate and lotemplate on same partition :
+		rm -rf "${SYS}/usr/lib64/libreoffice" \
+			|| die "Could not delete directory '${SYS}/usr/lib64/libreoffice'"
+	# else
+		# hard-links across partitions not working!
+		# ewarn "..."
+		# cp -rLv <lotemplate> <systemplate>
+	# endif 
 	# print how-to use...
 	elog "Ready for usage!"
 	ewarn "Change login/password for admin console in /etc/loolwsd/loolwsd.xml!"
