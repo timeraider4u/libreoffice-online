@@ -1,0 +1,14 @@
+[Unit]
+Description=LibreOffice On-Line WebSocket Daemon
+After=network.target
+
+[Service]
+#EnvironmentFile=-/etc/sysconfig/loolwsd
+ExecStart=/usr/bin/loolwsd --version
+User=lool
+PIDFile=/var/run/lool.pid
+KillMode=control-group
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
