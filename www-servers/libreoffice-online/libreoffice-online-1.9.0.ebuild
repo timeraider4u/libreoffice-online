@@ -120,7 +120,8 @@ pkg_postinst() {
 	elog "For OpenRC execute: /etc/init.d/${PN} start"
 	elog "For Systemd execute: systemctl start ${PN}"
 	local URL_PART1="https://localhost:9980/loleaflet/loleaflet.html?"
-	local URL_PART2="file_path=file:///home/test.odt&host=wss://localhost:9980"
-	local URL="${URL_PART1}${URL_PART2}"
+	local URL_PART2="file_path=file://${MYPATH}/home/hello.odt&"
+	local URL_PART3="host=wss://localhost:9980"
+	local URL="${URL_PART1}${URL_PART2}${URL_PART3}"
 	elog "Then open ${URL} in your browser!"
 }
