@@ -13,7 +13,7 @@ emerge -v www-servers/libreoffice-online
 ````
 
 ## About LibreOffice online
-LibreOffice online is developed by Collabora.
+LibreOffice online is mainly developed by Collabora.
 Docker files and more information can be found at
 https://www.collaboraoffice.com/code/
 
