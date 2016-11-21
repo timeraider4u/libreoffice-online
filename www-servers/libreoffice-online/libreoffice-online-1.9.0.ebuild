@@ -122,13 +122,13 @@ pkg_postinst() {
 	fi
 	# print how-to use...
 	elog "Ready for usage!"
-	ewarn "Change login/password for admin console in /etc/loolwsd/loolwsd.xml!"
-	elog "For OpenRC execute: /etc/init.d/${PN} start"
-	elog "For Systemd execute: systemctl start ${PN}"
 	local MNT_POINT=$(stat -c "%m" /var/lib/)
 	ewarn "Make sure that the mount point '${MNT_POINT}' for the directory " \
 		"'${MYPATH}' is mounted with option -exec. Otherwise the" \
 		"libreoffice-online service cannot be started successfully."
+	ewarn "Change login/password for admin console in /etc/loolwsd/loolwsd.xml!"
+	elog "For OpenRC execute: /etc/init.d/${PN} start"
+	elog "For Systemd execute: systemctl start ${PN}"
 	local URL_PART1="https://localhost:9980/loleaflet/loleaflet.html?"
 	local URL_PART2="file_path=file://${MYPATH}/home/hello.odt&"
 	local URL_PART3="host=wss://localhost:9980"
