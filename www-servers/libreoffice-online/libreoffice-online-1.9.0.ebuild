@@ -16,7 +16,11 @@ IUSE=""
 
 MYUSER="lool"
 MYGROUP="www-data"
-MYPATH="/var/lib/${PN}"
+
+# may be overriden by system administrator
+if [ -z "${MYPATH}" ]; then
+	MYPATH="/var/lib/${PN}"
+fi
 
 SRC_URI="https://github.com/LibreOffice/online/archive/${PV}.tar.gz
 	-> ${P}.tar.gz"
@@ -64,6 +68,8 @@ src_compile() {
 
 # see loolwsd/debian/lool.postinst for more installation hints
 src_install() {
+	exeinto "/usr/bin"
+	doexe "${FILESDIR}/${PV}/libreoffice-online-precheck.sh"
 	# prepare other things
 	dodir "${MYPATH}/cache"
 	fowners "${MYUSER}:${MYGROUP}" "${MYPATH}/cache"

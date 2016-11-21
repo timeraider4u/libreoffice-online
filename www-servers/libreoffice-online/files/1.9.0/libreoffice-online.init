@@ -1,4 +1,4 @@
-#!/sbin/runscript
+#!/sbin/openrc-run
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
@@ -12,10 +12,10 @@ depend() {
 }
 
 check_start() {
-	local MYPATH="/var/lib/libreoffice-online/systemplate"
-	if [ ! -d "${MYPATH}" ]; then
-		echo "Directory '${MYPATH}' does not exists"
-		exit 1
+	/usr/bin/libreoffice-online-precheck.sh
+	local RESULT="${?}"
+	if [[ "${RESULT}" != "0" ]]; then
+		exit "${RESULT}"
 	fi
 }
 
@@ -30,7 +30,7 @@ start() {
 		--pidfile "${PIDFILE}" \
 		--stdout "${LOGFILE}" \
 		--stderr "${LOGFILE}" \
-		--exec /usr/bin/loolwsd
+		--exec /usr/bin/libreoffice-online.sh
 	eend $?
 }
 

@@ -4,11 +4,14 @@ After=network.target
 
 [Service]
 #EnvironmentFile=-/etc/sysconfig/loolwsd
+StandardOutput=journal
+StandardError=journal+console
+ExecStartPre=/usr/bin/libreoffice-online-precheck.sh
 ExecStart=/usr/bin/loolwsd --version
 User=lool
 PIDFile=/var/run/lool.pid
-KillMode=control-group
-Restart=always
+#KillMode=control-group
+#Restart=always
 
 [Install]
 WantedBy=multi-user.target
