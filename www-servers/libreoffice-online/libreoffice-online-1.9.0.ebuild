@@ -18,9 +18,9 @@ MYUSER="lool"
 MYGROUP="www-data"
 
 # may be overriden by system administrator
-if [ -z "${MYPATH}" ]; then
+#if [ -z "${MYPATH}" ]; then
 	MYPATH="/var/lib/${PN}"
-fi
+#fi
 
 SRC_URI="https://github.com/LibreOffice/online/archive/${PV}.tar.gz
 	-> ${P}.tar.gz"
@@ -125,6 +125,10 @@ pkg_postinst() {
 	ewarn "Change login/password for admin console in /etc/loolwsd/loolwsd.xml!"
 	elog "For OpenRC execute: /etc/init.d/${PN} start"
 	elog "For Systemd execute: systemctl start ${PN}"
+	local MNT_POINT=$(stat -c "%m" /var/lib/)
+	ewarn "Make sure that the mount point '${MNT_POINT}' for the directory " \
+		"'${MY_PATH}' is mounted with option -exec. Otherwise the" \
+		"libreoffice-online service cannot be started successfully."
 	local URL_PART1="https://localhost:9980/loleaflet/loleaflet.html?"
 	local URL_PART2="file_path=file://${MYPATH}/home/hello.odt&"
 	local URL_PART3="host=wss://localhost:9980"
