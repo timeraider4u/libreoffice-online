@@ -127,7 +127,7 @@ pkg_postinst() {
 	elog "For Systemd execute: systemctl start ${PN}"
 	local MNT_POINT=$(stat -c "%m" /var/lib/)
 	ewarn "Make sure that the mount point '${MNT_POINT}' for the directory " \
-		"'${MY_PATH}' is mounted with option -exec. Otherwise the" \
+		"'${MYPATH}' is mounted with option -exec. Otherwise the" \
 		"libreoffice-online service cannot be started successfully."
 	local URL_PART1="https://localhost:9980/loleaflet/loleaflet.html?"
 	local URL_PART2="file_path=file://${MYPATH}/home/hello.odt&"
