@@ -8,10 +8,10 @@ You may use some commands similiar to the following:
 ````bash
 cd /usr/local/
 git clone https://github.com/timeraider4u/libreoffice-online.git
-cd libreoffice-online
-echo "PORTDIR_OVERLAY=\"\${PORTDIR_OVERLAY} /usr/local/libreoffice-online/\"" \
-	>> /etc/portage/make.conf
-cp keywords/libreoffice-online /etc/portage/package.keywords/
+cp /usr/local/libreoffice-online/repos.conf/libreoffice-online.conf \
+	/etc/portage/repos.conf/
+cp /usr/local/libreoffice-online/package.keywords/libreoffice-online \
+	/etc/portage/package.keywords/
 emerge -v www-servers/libreoffice-online
 ````
 
