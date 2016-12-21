@@ -30,7 +30,7 @@ start() {
 		--pidfile "${PIDFILE}" \
 		--stdout "${LOGFILE}" \
 		--stderr "${LOGFILE}" \
-		--exec /usr/bin/libreoffice-online.sh
+		--exec /usr/bin/loolwsd --version
 	eend $?
 }
 

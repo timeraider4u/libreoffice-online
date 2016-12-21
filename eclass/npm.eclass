@@ -59,7 +59,8 @@ SRC_URI="http://registry.npmjs.org/${PN}/-/${P}.tgz"
 
 npm_src_unpack() {
     unpack "${A}"
-    mv "${WORKDIR}/package" ${S}
+    mkdir "${WORKDIR}/${P}" || die "Could not mkdir '${WORKDIR}/${P}"
+    mv -R "${WORKDIR}/"*.* "${WORKDIR}/${P}/"
 }
 
 # @FUNCTION: npm-src_compile
