@@ -11,8 +11,8 @@
 # Requires EAPI=2 or later.
 
 case ${EAPI} in
-    2|3|4|5|6) : ;;
-    *)     die "npm.eclass: unsupported EAPI=${EAPI:-0}" ;;
+	2|3|4|5|6) : ;;
+	*)     die "npm.eclass: unsupported EAPI=${EAPI:-0}" ;;
 esac
 
 inherit multilib
@@ -57,16 +57,20 @@ SRC_URI="http://registry.npmjs.org/${PN}/-/${P}.tgz"
 # the source code, then renames the 'package' dir to ${S}.
 
 npm_src_unpack() {
-    unpack "${A}"
-    mkdir "${WORKDIR}/${P}" || die "Could not mkdir '${WORKDIR}/${P}"
-    mv "${WORKDIR}/"*.* "${WORKDIR}/${P}/"
+	unpack "${A}"
+	mkdir "${WORKDIR}/${P}" || die "Could not mkdir '${WORKDIR}/${P}"
+	# ...
+	find "${WORKDIR}/" -type f -mindepth 1 -maxdepth 1 \! -name "${P}" \
+		-exec mv {} "${WORKDIR}/${P}/" \;
+	find "${WORKDIR}/" -mindepth 2 -maxdepth 2 \! -name "${P}" \
+		-exec mv {} "${WORKDIR}/${P}/" \;
 }
 
 # @FUNCTION: npm-src_compile
 # @DESCRIPTION:
 # This function does nothing.
 npm_src_compile() {
-    true
+	true
 }
 
 # @FUNCTION: npm-src_install
@@ -75,17 +79,19 @@ npm_src_compile() {
 # taking care of NPM_FILES, NPM_EXTRA_FILES, NPM_DOCS
 
 npm_src_install() {
-    local npm_files="${NPM_FILES} ${NPM_EXTRA_FILES}"
-    local node_modules="${D}/usr/$(get_libdir)/node_modules/${NPM_MODULE}"
+	local npm_files="${NPM_FILES} ${NPM_EXTRA_FILES}"
+	local node_modules="${D}/usr/$(get_libdir)/node_modules/${NPM_MODULE}"
 
-    mkdir -p ${node_modules} || die "Could not create DEST folder"
+	mkdir -p ${node_modules} || die "Could not create DEST folder"
 
-    for f in ${npm_files}
-    do
-        if [[ -e "${S}/$f" ]]; then
-            cp -r "${S}/$f" ${node_modules}
-        fi
-    done
+	for f in ${npm_files}
+	do
+		#echo "checking/copying '${S}/$f'"
+		if [[ -e "${S}/$f" ]]; then
+			cp -r "${S}/$f" ${node_modules} \
+				|| die "Could not cp -r '${S}/$f' to ${node_modules}"
+		fi
+	done
 
 	# Install docs usually found in NodeJS/NPM packages.
 	local f
@@ -95,17 +101,17 @@ npm_src_install() {
 			dodoc "${f}"
 		fi
 	done
-    
-    if has doc ${USE}; then
-        local npm_docs="${NPM_DOCS}"
 
-        for f in $npm_docs
-        do
-            if [[ -e "${S}/$f" ]]; then
-                dodoc -r "${S}/$f"
-            fi
-        done
-    fi
+	if has doc ${USE}; then
+		local npm_docs="${NPM_DOCS}"
+
+		for f in $npm_docs
+		do
+			if [[ -e "${S}/$f" ]]; then
+				dodoc -r "${S}/$f"
+			fi
+		done
+	fi
 }
 
 EXPORT_FUNCTIONS src_unpack src_compile src_install
