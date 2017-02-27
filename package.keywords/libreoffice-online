@@ -17,8 +17,8 @@
 =www-apps/loolwsd-1.9.0 ~amd64
 =www-servers/libreoffice-online-1.9.0 ~amd64
 #
-# 2.0.0 version
+# 2.0.3 version
 #
-=www-apps/loleaflet-2.0.0 ~amd64
-=www-apps/loolwsd-2.0.0 ~amd64
-=www-servers/libreoffice-online-2.0.0 ~amd64
+=www-apps/loleaflet-2.0.3 ~amd64
+=www-apps/loolwsd-2.0.3 ~amd64
+=www-servers/libreoffice-online-2.0.3 ~amd64
