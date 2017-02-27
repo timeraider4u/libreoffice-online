@@ -1,0 +1,41 @@
+#!/sbin/openrc-run
+# Copyright 1999-2016 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+LOGFILE="/var/log/libreoffice-online/lool.log"
+#ERRFILE="/var/log/libreoffice-online/lool-err.log"
+PIDFILE="/var/run/lool.pid"
+
+depend() {
+	use clock logger
+	#need localmount
+}
+
+check_start() {
+	/usr/bin/libreoffice-online-precheck.sh
+	local RESULT="${?}"
+	if [[ "${RESULT}" != "0" ]]; then
+		exit "${RESULT}"
+	fi
+}
+
+start() {
+	ebegin "Starting libreoffice-online"
+	check_start
+	start-stop-daemon \
+		--start \
+		-u lool \
+		--background \
+		--make-pidfile \
+		--pidfile "${PIDFILE}" \
+		--stdout "${LOGFILE}" \
+		--stderr "${LOGFILE}" \
+		--exec /usr/bin/loolwsd --version
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping libreoffice-online"
+	start-stop-daemon --stop --pidfile "${PIDFILE}"
+	eend $?
+}

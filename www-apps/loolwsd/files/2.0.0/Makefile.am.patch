@@ -1,0 +1,11 @@
+--- Makefile.am	2016-12-06 21:41:42.000000000 +0100
++++ Makefile.am	2017-02-03 15:03:23.583756228 +0100
+@@ -203,7 +203,7 @@
+ # installing the RPM or Debian package.
+ 
+ all-local: loolforkit @JAILS_PATH@ $(SYSTEM_STAMP)
+-	@if test "$$BUILDING_FROM_RPMBUILD" != yes; then \
++	if test 0 == 1; then \
+ 	    sudo @SETCAP@ cap_fowner,cap_mknod,cap_sys_chroot=ep loolforkit; \
+ 	    sudo @SETCAP@ cap_sys_admin=ep loolmount; \
+ 	    echo "Set required capabilities"; \
