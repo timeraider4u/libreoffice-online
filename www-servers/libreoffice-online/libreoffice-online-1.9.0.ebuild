@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -34,7 +34,7 @@ S="${WORKDIR}/online-${PV}"
 # as otherwise executing the loolwsd service will lead to problems
 # when trying to create hard-links across different partitions/devices.
 function checkOnSamePartition() {
-	local DEV1=$(stat -c "%d" /usr/lib64/libreoffice)
+# 	local DEV1=$(stat -c "%d" /usr/$(get_libdir)/libreoffice)
 	local DEV2=$(stat -c "%d" /var/lib/)
 	test "${DEV1}" == "${DEV2}"
 	RES=$?
@@ -99,11 +99,13 @@ src_install() {
 	else
 		newins "${FILESDIR}/${PV}/loolwsd-copy-lo.xml" "loolwsd.xml"
 	fi
+	sed -i -e "s/lib64/$(get_libdir)/g" "${ED}/etc/loolwsd/loolwsd.xml" || \
+		die "Could not adapt libdir for '${ED}/etc/loolwsd/loolwsd.xml'"
 }
 
 pkg_postinst() {
 	# populate systemplate
-	local LO="/usr/lib64/libreoffice"
+	local LO="/usr/$(get_libdir)/libreoffice"
 	local SYS="${MYPATH}/systemplate"
 	elog "Creating and populating '${SYS}'"
 	rm -Rf "${SYS}" || \
