@@ -1,0 +1,13 @@
+--- loleaflet/Makefile.orig	2017-03-28 15:12:36.615509745 +0200
++++ loleaflet/Makefile	2017-03-28 15:13:02.371398164 +0200
+@@ -41,8 +41,8 @@
+ 	cp -ar dist loleaflet-$(VERSION)
+ 	mkdir -p loleaflet-$(VERSION)/dist/node_modules/jquery-ui/themes/ui-lightness/images/
+ 	cp -a node_modules/jquery-ui/themes/ui-lightness/images/ui-bg_highlight-soft_100_eeeeee_1x100.png loleaflet-$(VERSION)/dist/node_modules/jquery-ui/themes/ui-lightness/images/
+-	tar cfz loleaflet-$(VERSION).tar.gz loleaflet-$(VERSION)
+-	rm -rf loleaflet-$(VERSION)
++	#tar cfz loleaflet-$(VERSION).tar.gz loleaflet-$(VERSION)
++	#rm -rf loleaflet-$(VERSION)
+ 
+ pot:
+ 	xgettext --from-code=UTF-8 --keyword=_ --output=po/templates/loleaflet-ui.pot \
