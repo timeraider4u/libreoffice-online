@@ -37,27 +37,20 @@ FILECAPS=(
 
 src_prepare() {
 	epatch "${FILESDIR}/${PV}/Makefile.am.patch"
-	epatch "${FILESDIR}/${PV}/LOOLKit.cpp.patch"
+	epatch "${FILESDIR}/${PV}/Kit.cpp.patch"
 	eapply_user
 }
 
 src_configure() {
-	cd "${S}/${PN}" || die "Could not change dir to '${S}/${PN}'"
 	local myeconfargs=( \
-		--with-lokit-path="${S}/${PN}/bundled/include/" \
+		--with-lokit-path="${S}/bundled/include/" \
 		# $(use_enable foo) \
 	)
 	eautoreconf
 	econf ${myeconfargs}
 }
 
-src_compile() {
-	cd "${S}/${PN}" || die "Could not change dir to '${S}/${PN}'"
-	emake
-}
-
 src_install() {
-	cd "${S}/${PN}" || die "Could not change dir to '${S}/${PN}'"
 	emake DESTDIR="${D}" install
 	local MY_CNF="${D}/etc/loolwsd/loolwsd.xml"
 	mv "${MY_CNF}" "${MY_CNF}.orig" \
