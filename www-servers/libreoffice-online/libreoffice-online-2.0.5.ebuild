@@ -75,7 +75,7 @@ src_install() {
 	dodir "${MYPATH}/home"
 	fowners "${MYUSER}:${MYGROUP}" "${MYPATH}/home"
 	insinto "${MYPATH}/home"
-	newins "${S}/loolwsd/test/data/hello.odt" "hello.odt"
+	newins "${S}/test/data/hello.odt" "hello.odt"
 	fowners "${MYUSER}:${MYGROUP}" "${MYPATH}/home/hello.odt"
 	dodir "${MYPATH}/jails"
 	fperms 0700 "${MYPATH}/jails"
