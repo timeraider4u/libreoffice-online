@@ -37,7 +37,7 @@ FILECAPS=(
 
 src_prepare() {
 	epatch "${FILESDIR}/${PV}/Makefile.am.patch"
-	epatch "${FILESDIR}/${PV}/Kit.cpp.patch"
+	#epatch "${FILESDIR}/${PV}/Kit.cpp.patch"
 	eapply_user
 }
 
